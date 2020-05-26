@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+  ios_base::sync_with_stdio(0); cin.tie(0);
+  long long int tiempo,n,u,f,d,cont,suma,inclinado,plano;
+  char c;
+  suma=0;
+  cont=0;
+  cin>>tiempo>>n>>u>>f>>d;  
+  inclinado=u+d;
+  plano=f*2;
+  for(int i=1;i<=n;i++){
+    cin>>c;
+    if(suma<=tiempo){
+      if(c=='F') suma+=plano;
+      else suma+=inclinado;
+      if(suma<=tiempo) cont++;
+    }
+  }
+  cout<<cont<<'\n';
+}
+/// xD

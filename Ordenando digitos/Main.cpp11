@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,valor;
+int digitos[12];
+
+void lectura(int n,int i){
+    if(i<=n){
+        cin>>valor;
+        digitos[valor]++;
+        lectura(n,i+1);
+    }
+}
+void imprimir(int i){
+    if(i<=9){
+        if(digitos[i]>=1){
+            cout<<i<<" ";
+            digitos[i]--;
+            imprimir(i);
+        }else{
+            imprimir(i+1);
+        }
+    }
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    cin>>n;
+    lectura(n,1);
+    imprimir(0);
+
+
+    return 0;
+}

@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    stack<int>paren;
+    stack<char>inver;
+    string texto;
+    int i,tam,j,r;
+    getline(cin,texto);
+    i=0;
+    tam=texto.size();
+    while(i<tam){
+        if(texto[i]=='('){
+            paren.push(i+1);
+        }
+        if(texto[i]==')'){
+            j=paren.top();
+            r=paren.top();
+            while(j<i){
+                if(texto[j]!='(' and texto[j]!=')'){
+                    inver.push(texto[j]);
+                }
+                j++;
+            }
+            while(r<i){
+                if(texto[r]!='(' and texto[r]!=')'){
+                    texto[r]=inver.top();
+                    inver.pop();
+                }
+                r++;
+            }
+            paren.pop();
+        }
+        i++;
+    }
+    i=0;
+    while(i<tam){
+        if(texto[i]!='(' and texto[i]!=')'){
+            cout<<texto[i];
+        }
+        i++;
+    }
+
+    return 0;
+}
+
+/**
+esto(licifid)(yum)(atse)
+esto(licifid(muy)atse)
+*/

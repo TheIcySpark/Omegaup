@@ -1,0 +1,135 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+string  objetivo="";
+
+map<string,char> v;
+struct nodo{
+  string llave;
+  int pasos;
+};
+
+queue<nodo> cola;
+
+nodo actual;
+
+string movA(string n){
+    reverse(n.begin(),n.end());
+    return n;
+}
+
+string movB(string n){
+    string ret="";
+    ret+=n[3];
+    ret+=n[0];
+    ret+=n[1];
+    ret+=n[2];
+    ret+=n[5];
+    ret+=n[6];
+    ret+=n[7];
+    ret+=n[4];
+    return ret;
+}
+
+string movC(string n){
+    char p2=n[1],p3=n[2],p6=n[5],p7=n[6];
+    n[1]=p7;
+    n[2]=p2;
+    n[5]=p3;
+    n[6]=p6;
+    return n;
+}
+
+string deshacerA(string n){
+    reverse(n.begin(),n.end());
+    return n;
+}
+
+string deshacerB(string n){
+    string ret="";
+    ret+=n[1];
+    ret+=n[2];
+    ret+=n[3];
+    ret+=n[0];
+    ret+=n[7];
+    ret+=n[4];
+    ret+=n[5];
+    ret+=n[6];
+    return ret;
+}
+
+string deshacerC(string n){
+    char p1=n[6],p2=n[1],p5=n[2],p6=n[5];
+    n[1]=p5;
+    n[2]=p6;
+    n[5]=p1;
+    n[6]=p2;
+    return n;
+}
+void agrega(nodo ele, char mov){
+ char movtoVis;
+ movtoVis=v[ele.llave];
+ if (!(movtoVis == 'A' or movtoVis=='B' or movtoVis=='C' or movtoVis=='I')){
+    /// no visitado
+    v[ele.llave]=mov;
+    nodo nuevo;
+    nuevo.llave = ele.llave;
+    nuevo.pasos = ele.pasos+1;
+    cola.push(nuevo);
+ }
+}
+
+
+
+void solucion(string llave){
+char movto;
+   if (llave != "12345678"){
+    movto=v[llave];
+    if (movto=='A'){
+        solucion(deshacerA(llave));
+        cout << "A"<<'\n';
+    }else if (movto=='B'){
+        solucion(deshacerB(llave));
+        cout << "B"<<'\n';
+    }else if(movto=='C'){
+        solucion(deshacerC(llave));
+        cout << "C"<<'\n';
+    }
+   }
+}
+
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int paso;
+
+    for(int i=0; i < 8; i++){
+        cin >> paso;
+        objetivo+=(paso+'0');
+    }
+    cola.push({"12345678",0});
+    nodo hijo;
+    v["12345678"]='I';///     marcando el nodo iicial
+    while(!cola.empty()){
+        actual= cola.front(); cola.pop();
+        if(actual.llave == objetivo){
+            cout<<actual.pasos<<'\n';
+            solucion(actual.llave);
+            break;
+        }
+        hijo=actual;
+        hijo.llave=movA(actual.llave);
+        agrega(hijo,'A');
+
+        hijo=actual;
+        hijo.llave=movB(actual.llave);
+        agrega(hijo,'B');
+
+        hijo=actual;
+        hijo.llave=movC(actual.llave);
+        agrega(hijo,'C');
+    }
+    return 0;
+}

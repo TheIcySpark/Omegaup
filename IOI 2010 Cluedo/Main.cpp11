@@ -1,0 +1,22 @@
+#include "cluedo.h"
+
+// Main
+//	int Teoria(int c, int u, int a)
+void ResolverCaso() {
+	int c,u,a,r;
+	c=1;
+	u=1;
+	a=1;
+	r=Teoria(c,u,a);
+	while(r!=0){
+        if(r==1){
+            c++;
+        }else if(r==2){
+            u++;
+        }else{
+            a++;
+        }
+        r=Teoria(c,u,a);
+	}
+	return;
+}

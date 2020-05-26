@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,ai,aa,cont,moda,i;
+int va[100002];
+int calculo(int i){
+    if(moda<va[i] or i>n){
+        return cont;
+    }else{
+        moda=moda+aa;
+        cont++;
+        calculo(i+1);
+    }
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    cin>>n>>ai>>aa;
+    for(i=1;i<=n;i++){
+        cin>>va[i];
+    }
+    moda=ai;
+    cont=0;
+    sort(va+1,va+n+1);
+    cout<<calculo(1);
+
+    return 0;
+}
